@@ -93,3 +93,7 @@ def sumOfNotMatch(matrix):
                 if(matrix[i][j] != newMatrix[i][j]):
                     sum = sum + 1
     return sum
+
+def realDepth(depth):
+    a = depth
+    return a * (-1)
