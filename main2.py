@@ -27,7 +27,7 @@ def KurangI(matrix):
         return False
 
 q = PriorityQueue()
-fileName = "move30.txt"
+fileName = "dariHilda.txt"
 
 puzzleMatrix = mastrixStruct(0, readMyFile(fileName), 0, False, None)
 answer = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]

@@ -11,8 +11,7 @@ class mastrixStruct(NamedTuple):
     notInResult: int
     matriksPuzzle: matrix
     depth: int
-    haveParent: bool
-    parent: matrix
+    path: list
 
 def KurangI(matrix):
     value = 0
@@ -29,11 +28,14 @@ def KurangI(matrix):
         return False
 
 q = PriorityQueue()
-fileName = "move15.txt"
+fileName = "move20.txt"
 puzzlenya = readMyFile(fileName)
 node = 1
+path = list()
+path.append(puzzlenya)
 
-puzzleMatrix = mastrixStruct(sumOfNotMatch(puzzlenya), (node * -1), sumOfNotMatch(puzzlenya), puzzlenya, 0, False, None)
+puzzleMatrix = mastrixStruct(sumOfNotMatch(puzzlenya), (node * -1), sumOfNotMatch(puzzlenya), puzzlenya, 0, path)
+
 answer = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
 visited = []
 inQueue = []
@@ -45,7 +47,7 @@ start_time = time.time()
 while not q.empty():
     # print(q.qsize())
     current = q.get()
-    print(current.matriksPuzzle, current.cost, current.notInResult, current.depth)
+    # print(current.matriksPuzzle, current.cost, current.notInResult, current.depth)
 
     if current.matriksPuzzle not in visited:
         visited.append(current.matriksPuzzle)
@@ -60,7 +62,9 @@ while not q.empty():
                 node = node + 1
                 newMatrix = moveUp(current.matriksPuzzle, row, col)
                 cost = current.depth + 1 + sumOfNotMatch(newMatrix)
-                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, True, current.matriksPuzzle)
+                newPath = current.path.copy()
+                newPath.append(newMatrix)
+                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, newPath)
                 if (newMatrixStruct.matriksPuzzle not in visited) and (newMatrixStruct.matriksPuzzle not in inQueue):
                     q.put(newMatrixStruct)
                     inQueue.append(newMatrixStruct.matriksPuzzle)
@@ -68,7 +72,9 @@ while not q.empty():
                 node = node + 1
                 newMatrix = moveDown(current.matriksPuzzle, row, col)
                 cost = current.depth + 1 + sumOfNotMatch(newMatrix)
-                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, True, current.matriksPuzzle)
+                newPath = current.path.copy()
+                newPath.append(newMatrix)
+                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, newPath)
                 if (newMatrixStruct.matriksPuzzle not in visited) and (newMatrixStruct.matriksPuzzle not in inQueue):
                     q.put(newMatrixStruct)
                     inQueue.append(newMatrixStruct.matriksPuzzle)
@@ -76,7 +82,9 @@ while not q.empty():
                 node = node + 1
                 newMatrix = moveLeft(current.matriksPuzzle, row, col)
                 cost = current.depth + 1 + sumOfNotMatch(newMatrix)
-                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, True, current.matriksPuzzle)
+                newPath = current.path.copy()
+                newPath.append(newMatrix)
+                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, newPath)
                 if (newMatrixStruct.matriksPuzzle not in visited) and (newMatrixStruct.matriksPuzzle not in inQueue):
                     q.put(newMatrixStruct)
                     inQueue.append(newMatrixStruct.matriksPuzzle)
@@ -84,15 +92,16 @@ while not q.empty():
                 node = node + 1
                 newMatrix = moveRight(current.matriksPuzzle, row, col)
                 cost = current.depth + 1 + sumOfNotMatch(newMatrix)
-                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, True, current.matriksPuzzle)
+                newPath = current.path.copy()
+                newPath.append(newMatrix)
+                newMatrixStruct = mastrixStruct(cost, (node * -1), sumOfNotMatch(newMatrix), newMatrix, current.depth + 1, newPath)
                 if (newMatrixStruct.matriksPuzzle not in visited) and (newMatrixStruct.matriksPuzzle not in inQueue):
                     q.put(newMatrixStruct)
                     inQueue.append(newMatrixStruct.matriksPuzzle)
 
 end_time = time.time()
-print(current.matriksPuzzle)
+
 print("Time: ", end_time - start_time)
 print("Node: ", node)
-
-# sigmaKurangI = KurangI(puzzleMatrix.matriksPuzzle)
-# print(sigmaKurangI)
+for matriks in current.path:
+    print(matriks)
