@@ -9,7 +9,10 @@ Program ini akan menyelesaikan persoalan 15-puzzle. Inputan persoalan dapat beru
 - numpy 1.22.2
 
 ## Cara Menjalankan Program
-1. 
+1. Ubah directory menjadi pada folder **src**
+2. Masukkan command `python main.py` pada terminal untuk menjalankan program
+3. Masukkan nama file persoalan puzzle (pastikan file puzzle berada pada folder TestCase). Dapat juga dengan mengetikkan Random untuk puzzle random buatan program.
+4. Program akan dimulai dan menampilkan hasil dari persoalan puzzle.
 
 ## Contoh instansiasi persoalan 15-puzzle
 Persoalan dapat dilihat pada folder src, lalu mengakses folder TestCase

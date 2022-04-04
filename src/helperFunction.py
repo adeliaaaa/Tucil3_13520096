@@ -57,7 +57,7 @@ def insertFile():
     if(fileName == "Random"):
         return createRandomPuzzle()
     else:
-        fileName = "./src/TestCase/" + fileName
+        fileName = "TestCase/" + fileName
 
         puzzle = readMyFile(fileName)
 
